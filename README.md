@@ -1,117 +1,72 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
+# Домашнее задание к занятию "Система мониторинга Zabbix" - Марчук Кирилл
 
 
-### Инструкция по выполнению домашнего задания
 
-   1. Сделайте `fork` данного репозитория к себе в Github и переименуйте его по названию или номеру занятия, например, https://github.com/имя-вашего-репозитория/git-hw или  https://github.com/имя-вашего-репозитория/7-1-ansible-hw).
-   2. Выполните клонирование данного репозитория к себе на ПК с помощью команды `git clone`.
-   3. Выполните домашнее задание и заполните у себя локально этот файл README.md:
-      - впишите вверху название занятия и вашу фамилию и имя
-      - в каждом задании добавьте решение в требуемом виде (текст/код/скриншоты/ссылка)
-      - для корректного добавления скриншотов воспользуйтесь [инструкцией "Как вставить скриншот в шаблон с решением](https://github.com/netology-code/sys-pattern-homework/blob/main/screen-instruction.md)
-      - при оформлении используйте возможности языка разметки md (коротко об этом можно посмотреть в [инструкции  по MarkDown](https://github.com/netology-code/sys-pattern-homework/blob/main/md-instruction.md))
-   4. После завершения работы над домашним заданием сделайте коммит (`git commit -m "comment"`) и отправьте его на Github (`git push origin`);
-   5. Для проверки домашнего задания преподавателем в личном кабинете прикрепите и отправьте ссылку на решение в виде md-файла в вашем Github.
-   6. Любые вопросы по выполнению заданий спрашивайте в чате учебной группы и/или в разделе “Вопросы по заданию” в личном кабинете.
-   
-Желаем успехов в выполнении домашнего задания!
-   
-### Дополнительные материалы, которые могут быть полезны для выполнения задания
+### Задание 1 устанавить  Zabbix Server c веб-интерфейсом
 
-1. [Руководство по оформлению Markdown файлов](https://gist.github.com/Jekins/2bf2d0638163f1294637#Code)
+
+1. `Установил PostgreSQL`
+2. `Установил Zabbix Server и Zabbix Web Server`
+3. `Проверил что всё работает и заходит на zabbix server`
+
+
+```
+sudo apt update
+sudo apt install postgresql
+
+wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-
+release_6.0-4%2Bdebian11_all.deb 
+dpkg -i zabbix-release_6.0-4+debian11_all.deb
+apt update
+sudo apt install zabbix-server-pgsql zabbix-frontend-php php7.4-pgsql zabbix-apache-conf zabbix-sql-
+scripts nano -y
+
+su - postgres -c 'psql --command "CREATE USER zabbix WITH PASSWORD
+'\'123456789\'';"'
+
+su - postgres -c 'psql --command "CREATE DATABASE zabbix OWNER zabbix;"'
+
+zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+
+sed -i 's/# DBPassword=/DBPassword=123456789/g' /etc/zabbix/zabbix_server.conf
+
+sudo systemctl restart zabbix-server apache2 # zabbix-agent
+sudo systemctl enable zabbix-server apache2 # zabbix-agent
+```
+
+
+![Диагностика сервера zabbix](https://drive.google.com/file/d/1FLBmdtIkZE4-ISX-uJwA_g7zVrSIsiK9/view?usp=sharing)`
+![Завершение установки и вход](https://drive.google.com/file/d/1A41vbkn0Ce3eeB-PGOBpEWDHZRYmAWIX/view?usp=sharing)`
 
 ---
 
-### Задание 1
+### Задание 2 Установка Zabbix Agent на два хоста.
 
-`Приведите ответ в свободной форме........`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
+
+1. `Установил Zabbix Agent на 2 вирт.машины`
+2. `Добавил Zabbix Server в список разрешенных серверов своих Zabbix Agentов`
+3. `Добавил Zabbix Agentов в раздел Configuration > Hosts своегоZabbix Servera`
 4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
+5. `В разделе Latest Data начали появляться данные с добавленных агентов`
 6. 
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+wget https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+sudo dpkg -i zabbix-release_6.4-1+debian11_all.deb
+sudo apt update
+sudo apt install zabbix-agent -y
+sudo nano /etc/zabbix/zabbix_agentd.conf  # редактирование Server, ServerActive, Hostname
+sudo systemctl enable zabbix-agent
+sudo systemctl restart zabbix-agent
+sudo systemctl status zabbix-agent
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 1](ссылка на скриншот 1)`
 
+![HOSTS](https://drive.google.com/file/d/1-5UK8azSSqYCx2Dsa32Jup5KB8A4egQE/view?usp=sharing)`
+![логи zabbix agent](https://drive.google.com/file/d/1VutBmvYKtqYlPiSfNmuS7JJQVixp1p0o/view?usp=sharing)`
+![Monitoring Latest data 1](https://drive.google.com/file/d/1niCdonCrZLoQr0KhJeiKVOsn7etYNy-d/view?usp=sharing)`
+![Monitoring  Latest data 2](https://drive.google.com/file/d/1NsVCBfb4H0hoUV6WO4kQas4vPdaplPQg/view?usp=sharing)`
 
 ---
 
-### Задание 2
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
-
-
----
-
-### Задание 3
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
-
-### Задание 4
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
