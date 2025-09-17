@@ -36,7 +36,7 @@ sudo systemctl enable zabbix-server apache2 # zabbix-agent
 
 
 ![Диагностика сервера zabbix](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/проверка%20zabbix.png)
-![Завершение установки и вход](https://drive.google.com/file/d/1A41vbkn0Ce3eeB-PGOBpEWDHZRYmAWIX/view?usp=sharing)`
+![Завершение установки и вход](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/zabbixinst.png)
 
 ---
 
@@ -63,10 +63,10 @@ sudo systemctl status zabbix-agent
 ```
 
 
-![HOSTS](https://drive.google.com/file/d/1-5UK8azSSqYCx2Dsa32Jup5KB8A4egQE/view?usp=sharing)`
-![логи zabbix agent](https://drive.google.com/file/d/1VutBmvYKtqYlPiSfNmuS7JJQVixp1p0o/view?usp=sharing)`
-![Monitoring Latest data 1](https://drive.google.com/file/d/1niCdonCrZLoQr0KhJeiKVOsn7etYNy-d/view?usp=sharing)`
-![Monitoring  Latest data 2](https://drive.google.com/file/d/1NsVCBfb4H0hoUV6WO4kQas4vPdaplPQg/view?usp=sharing)`
+![HOSTS](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/Configuration%20%20Hosts.png)
+![логи zabbix agent](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/zabbix%20agent.png)
+![Monitoring Latest data 1](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/Monitoring%20%20Latest%20data%201.png)
+![Monitoring  Latest data 2](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/Monitoring%20%20Latest%20data%202.png)
 
 ---
 
