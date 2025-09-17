@@ -35,7 +35,7 @@ sudo systemctl enable zabbix-server apache2 # zabbix-agent
 ```
 
 
-![Диагностика сервера zabbix](https://drive.google.com/file/d/1FLBmdtIkZE4-ISX-uJwA_g7zVrSIsiK9/view?usp=sharing)`
+![Диагностика сервера zabbix](https://github.com/ottofonciceron-coder/hw-02.md/blob/main/проверка%20zabbix.png)
 ![Завершение установки и вход](https://drive.google.com/file/d/1A41vbkn0Ce3eeB-PGOBpEWDHZRYmAWIX/view?usp=sharing)`
 
 ---
